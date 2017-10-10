@@ -61,7 +61,6 @@ class Arena {
             score += rowCount * 10;
             rowCount*=2;
         }
-        console.log(score);
         return score;
     }
 }

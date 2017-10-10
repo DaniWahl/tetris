@@ -70,8 +70,14 @@ class Player
             this.pos.y--;
             this.arena.merge(this);
             this.reset();
-            this.score = this.arena.sweep();
+            const score = this.arena.sweep();
+            this.score += score;
             this.tetris.updateScore(this.score);
+
+            if(score) {
+                this.dropInterval -= 50;
+            }
+            
         }
         this.dropCounter = 0;
     }
@@ -95,8 +101,10 @@ class Player
         if(this.arena.collide(this)) {
             this.arena.clear();
             this.score = 0;
-            this.tetris.updateScore();
+            this.tetris.updateScore(this.score);
+            this.dropInterval=1000;
         }
+
     }
 
     
