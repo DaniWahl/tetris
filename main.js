@@ -1,7 +1,6 @@
 
-const canvas = document.getElementById('tetris');
-
-const tetris = new Tetris(canvas);
+const element = document.getElementById('tetris');
+const tetris = new Tetris(element);
 
 document.addEventListener('keydown', event => {
     const player = tetris.player;
@@ -15,10 +14,4 @@ document.addEventListener('keydown', event => {
         player.rotate(1);
     } 
 });
-
-function updateScore() {
-    document.getElementById('score').innerText = tetris.player.score;
-}
-updateScore();
-
 

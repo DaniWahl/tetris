@@ -70,8 +70,8 @@ class Player
             this.pos.y--;
             this.arena.merge(this);
             this.reset();
-            this.arena.sweep();
-            updateScore();
+            this.score = this.arena.sweep();
+            this.tetris.updateScore(this.score);
         }
         this.dropCounter = 0;
     }
@@ -95,7 +95,7 @@ class Player
         if(this.arena.collide(this)) {
             this.arena.clear();
             this.score = 0;
-            updateScore();
+            this.tetris.updateScore();
         }
     }
 
