@@ -3,9 +3,10 @@ class Tetris
     constructor(element) 
     {
         this.element = element;
-        this.canvas = element.querySelector('canvas');
+        this.canvas = element.querySelector('.arena');
+        this.nextCanvas = element.querySelector('.next');
         this.context = this.canvas.getContext('2d');
-        //this.context.scale(20,20);
+        this.nextContext = this.nextCanvas.getContext('2d');
 
         this.scale = 20;
 
@@ -43,27 +44,31 @@ class Tetris
     {
         this.context.fillStyle = '#000';
         this.context.fillRect(0,0,this.canvas.width, this.canvas.height);
+        this.nextContext.fillStyle = '#000';
+        this.nextContext.fillRect(0,0,this.nextCanvas.width, this.nextCanvas.height);
     
-        this.drawMatrix(this.arena.matrix, {x:0, y:0});
-        this.drawMatrix(this.player.matrix, this.player.pos);
+        this.drawMatrix(this.arena.matrix, {x:0, y:0}, this.context);
+        this.drawMatrix(this.player.matrix, this.player.pos, this.context);
+
+        this.drawMatrix(this.player.nextMatrix, {x:1, y:1}, this.nextContext);
     }
     
-    drawMatrix(matrix, offset) 
+    drawMatrix(matrix, offset, context) 
     {
         const scale = this.scale;
         matrix.forEach((row, y) => {
             row.forEach((value, x) => {
                 if(value !== 0) {
-                    this.context.fillStyle = this.colors[value];
-                    this.context.strokeStyle = "rgba(0,0,0,0.8)";
+                    context.fillStyle = this.colors[value];
+                    context.strokeStyle = "rgba(0,0,0,0.8)";
 
-                    this.context.fillRect(
+                    context.fillRect(
                         (x* scale) + (offset.x * scale), 
                         (y* scale) + (offset.y * scale), 
                         scale, 
                         scale
                     );
-                    this.context.strokeRect(
+                    context.strokeRect(
                         (x* scale) + (offset.x * scale), 
                         (y* scale) + (offset.y * scale), 
                         scale, 

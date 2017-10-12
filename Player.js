@@ -8,9 +8,11 @@ class Player
 
         this.dropCounter = 0;
         this.dropInterval = 1000;
+        this.pieces = 'ILJOTSZ';
 
         this.pos = {x:0, y:0};
         this.matrix = null;
+        this.nextMatrix = this.createPiece(this.pieces[this.pieces.length * Math.random() | 0]);
         this.score = 0;
 
         this.reset();
@@ -94,8 +96,10 @@ class Player
 
     reset() 
     {
-        const pieces = 'ILJOTSZ';
-        this.matrix = this.createPiece(pieces[pieces.length * Math.random() | 0]);
+        
+        this.matrix = this.nextMatrix;
+        this.nextMatrix = this.createPiece(this.pieces[this.pieces.length * Math.random() | 0]);
+        
         this.pos.y = 0;
         this.pos.x = (this.arena.matrix[0].length / 2 | 0) - 
                        (this.matrix[0].length / 2 | 0);
