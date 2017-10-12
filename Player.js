@@ -4,6 +4,7 @@ class Player
     {
         this.tetris = tetris;
         this.arena = tetris.arena;
+        this.scale = tetris.scale;
 
         this.dropCounter = 0;
         this.dropInterval = 1000;
@@ -66,6 +67,7 @@ class Player
     drop() 
     {
         this.pos.y++;
+
         if(this.arena.collide(this)) {
             this.pos.y--;
             this.arena.merge(this);

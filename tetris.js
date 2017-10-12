@@ -5,9 +5,11 @@ class Tetris
         this.element = element;
         this.canvas = element.querySelector('canvas');
         this.context = this.canvas.getContext('2d');
-        this.context.scale(20,20);
+        //this.context.scale(20,20);
 
-        this.arena = new Arena(12, 20);
+        this.scale = 20;
+
+        this.arena = new Arena(12, 20, this.scale);
         this.player = new Player(this);
 
         this.colors = [
@@ -48,11 +50,25 @@ class Tetris
     
     drawMatrix(matrix, offset) 
     {
+        const scale = this.scale;
         matrix.forEach((row, y) => {
             row.forEach((value, x) => {
                 if(value !== 0) {
                     this.context.fillStyle = this.colors[value];
-                    this.context.fillRect(x + offset.x, y + offset.y, 1, 1);
+                    this.context.strokeStyle = "rgba(0,0,0,0.8)";
+
+                    this.context.fillRect(
+                        (x* scale) + (offset.x * scale), 
+                        (y* scale) + (offset.y * scale), 
+                        scale, 
+                        scale
+                    );
+                    this.context.strokeRect(
+                        (x* scale) + (offset.x * scale), 
+                        (y* scale) + (offset.y * scale), 
+                        scale, 
+                        scale
+                    );
                 }
             });
         });

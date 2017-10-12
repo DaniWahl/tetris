@@ -1,12 +1,13 @@
 class Arena {
 
-    constructor(w, h) 
+    constructor(w, h, s) 
     {
         const matrix = [];
         while (h--) {
             matrix.push(new Array(w).fill(0));
         }
         this.matrix = matrix;
+        this.scale = s;
     }
 
     clear() 
